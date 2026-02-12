@@ -1,181 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine 💖</title>
-
-  <style>
-    @keyframes shake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-6px); }
-  80% { transform: translateX(6px); }
-  100% { transform: translateX(0); }
-}
-
-.shake {
-  animation: shake 0.35s ease;
-}
-
-#noBtn {
-  touch-action: none;
-}
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ffe6eb, #fde2ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-
-    .card {
-      background: #fff;
-      width: 92%;
-      max-width: 360px;
-      border-radius: 26px;
-      padding: 34px 22px 40px;
-      text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-      position: relative;
-      z-index: 2;
-    }
-
-    .emoji {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #1f1f1f;
-      margin-bottom: 28px;
-      line-height: 1.35;
-    }
-
-    .buttons {
-      position: relative;
-      display: flex;
-      gap: 12px;
-      height: 70px;
-    }
-
-    button {
-      flex: 1;
-      border: none;
-      border-radius: 16px;
-      cursor: pointer;
-      font-size: 18px;
-      padding: 16px 0;
-    }
-
-    #yesBtn {
-      background: linear-gradient(135deg, #ff4d88, #d63384);
-      color: white;
-      font-weight: 600;
-      box-shadow: 0 12px 25px rgba(214,51,132,0.35);
-    }
-
-    #noBtn {
-      background: #f2f2f2;
-      color: #444;
-      font-size: 16px;
-      position: relative;
-      transition: all 0.25s ease;
-    }
-
-    .hint {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #d63384;
-      font-style: italic;
-      min-height: 18px;
-    }
-
-    .result {
-      display: none;
-    }
-
-    .result h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .result img {
-      width: 180px;
-      margin-top: 15px;
-    }
-
-    /* Hearts */
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 22px;
-      animation: floatUp 2.5s ease forwards;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-600px) scale(1.6);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="card" id="main">
-    <div class="emoji">🐻‍❣️</div>
-
-    <h1>
-      Nehuuuuu will you be my<br/>valentine?
-    </h1>
-
-    <div class="buttons" id="btnArea">
-      <button id="yesBtn">Yes 💖</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
-
-    <div class="hint" id="hintText">Just say Yes already!</div>
-  </div>
-
-  <div class="card result" id="result">
-    <h1>It’s a date 💃🕺</h1>
-    <p>I knew it 😌💖</p>
-
-    <!-- 👉 Replace this GIF URL with anything you like -->
-    <img src="https://media.giphy.com/media/3oz8xAFtqoOUUrsh7W/giphy.gif" />
-  </div>
-
-  <script>
+<script>
   const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
   const message = document.getElementById("hintText");
 
-const noMessages = [
-  "Haha nice try 😏",
-  "You can’t escape cutu 🥰",
-  "Not happening 😌",
-  "Wrong button 😈",
-  "Just say yes already ❤️"
-];
+  const noMessages = [
+    "Haha nice try 😏",
+    "You can’t escape cutu 🥰",
+    "Not happening 😌",
+    "Wrong button 😈",
+    "Just say yes already ❤️"
+  ];
 
-let msgIndex = 0;
+  let msgIndex = 0;
 
   function moveNoButton() {
     const btnWidth = noBtn.offsetWidth;
@@ -184,39 +20,40 @@ let msgIndex = 0;
     const maxX = window.innerWidth - btnWidth - 20;
     const maxY = window.innerHeight - btnHeight - 20;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
     noBtn.style.position = "fixed";
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
+    noBtn.style.left = `${Math.random() * maxX}px`;
+    noBtn.style.top = `${Math.random() * maxY}px`;
   }
 
-function shakeAndMove() {
-  // Change the hint text
-  message.textContent = noMessages[msgIndex];
-  msgIndex = (msgIndex + 1) % noMessages.length;
+  function shakeAndMove() {
+    message.textContent = noMessages[msgIndex];
+    msgIndex = (msgIndex + 1) % noMessages.length;
 
-  // Shake animation
-  noBtn.classList.remove("shake");
-  void noBtn.offsetWidth;
-  noBtn.classList.add("shake");
+    noBtn.classList.remove("shake");
+    void noBtn.offsetWidth;
+    noBtn.classList.add("shake");
 
-  // Move button
-  setTimeout(moveNoButton, 120);
-}
+    setTimeout(moveNoButton, 120);
   }
 
+  // Desktop
   noBtn.addEventListener("mouseenter", shakeAndMove);
+
+  // Mobile
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     shakeAndMove();
   });
+
+  // Block click
   noBtn.addEventListener("click", (e) => {
     e.preventDefault();
     shakeAndMove();
   });
-</script>
 
-</body>
-</html>
+  // Yes button
+  yesBtn.addEventListener("click", () => {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("result").style.display = "block";
+  });
+</script>
