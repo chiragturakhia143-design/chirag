@@ -165,6 +165,17 @@
 
   <script>
   const noBtn = document.getElementById("noBtn");
+  const message = document.getElementById("hinttext");
+
+const noMessages = [
+  "Haha nice try 😏",
+  "You can’t escape cutu 🥰",
+  "Not happening 😌",
+  "Wrong button 😈",
+  "Just say yes already ❤️"
+];
+
+let msgIndex = 0;
 
   function moveNoButton() {
     const btnWidth = noBtn.offsetWidth;
@@ -181,12 +192,19 @@
     noBtn.style.top = `${y}px`;
   }
 
-  function shakeAndMove() {
-    noBtn.classList.remove("shake");
-    void noBtn.offsetWidth;
-    noBtn.classList.add("shake");
+function shakeAndMove() {
+  // Change the hint text
+  message.textContent = noMessages[msgIndex];
+  msgIndex = (msgIndex + 1) % noMessages.length;
 
-    setTimeout(moveNoButton, 120);
+  // Shake animation
+  noBtn.classList.remove("shake");
+  void noBtn.offsetWidth;
+  noBtn.classList.add("shake");
+
+  // Move button
+  setTimeout(moveNoButton, 120);
+}
   }
 
   noBtn.addEventListener("mouseenter", shakeAndMove);
